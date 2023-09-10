@@ -2,9 +2,9 @@
 ##############################---puplic-subnet---##############################
 
 resource "aws_subnet" "public-1" {
-  vpc_id     = aws_vpc.my_vpc.id
-  cidr_block = "10.0.1.0/24"
-
+  vpc_id            = aws_vpc.my_vpc.id
+  cidr_block        = "10.0.1.0/24"
+  availability_zone = "${var.region}a"
   tags = {
     Name = "public subnet 1"
   }
