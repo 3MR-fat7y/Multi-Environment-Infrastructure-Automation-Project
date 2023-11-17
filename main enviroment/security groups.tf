@@ -4,7 +4,8 @@
 resource "aws_security_group" "sgs-bastion" {
   name        = "sgs-bastion"
   description = "Allow openssh inbound traffic"
-  vpc_id      = aws_vpc.my_vpc.id
+  # vpc_id      = aws_vpc.my_vpc.id
+  vpc_id      = module.network.vpc_id
 
   ingress {
     description = "openssh from VPC"
@@ -31,7 +32,7 @@ resource "aws_security_group" "sgs-bastion" {
 resource "aws_security_group" "sgs-app" {
   name        = "sgs-app"
   description = "Security group for SSH and port 3000"
-  vpc_id      = aws_vpc.my_vpc.id
+  vpc_id      = module.network.vpc_id
 
   ingress {
     description = "port 3000 VPC"

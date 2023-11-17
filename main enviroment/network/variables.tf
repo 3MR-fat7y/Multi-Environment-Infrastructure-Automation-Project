@@ -1,8 +1,11 @@
+#arguments
+
 variable "region" {
   type    = string
   default = "us-east-1"
 }
-variable "vpc-cidr" {
+
+variable "net-vpc-cidr" {
   type    = string
   default = "10.0.0.0/16"
 }
@@ -21,12 +24,4 @@ variable "private-1-cidr" {
 variable "private-2-cidr" {
   type    = string
   default = "10.0.4.0/24"
-}
-variable "instance-type" {
-  type    = string
-  default = "t2.micro"
-}
-variable "ec2-ami" {
-  type    = string
-  default = "ami-026ebd4cfe2c043b2"
 }
