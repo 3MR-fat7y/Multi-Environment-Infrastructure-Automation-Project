@@ -47,7 +47,7 @@ git commit -m "discrebtion"
 git push -u origin master
 
 ```
-[![Next]][Next-url]
+[[Next]][Next-url]
 
 [Next-url]: https://nextjs.org/
 
