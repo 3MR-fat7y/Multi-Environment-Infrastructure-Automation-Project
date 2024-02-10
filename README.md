@@ -31,7 +31,7 @@ git clone https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automati
 
 * make ur uon ripo named Multi-Environment Infrastructure Automation Project 
 
-* then make your modifications on the [dev.tfvars] and [test.tfvars] then save and push the changes 
+* then make your modifications on the [dev.tfvars][dev.tfvars-url] and [test.tfvars][test.tfvars-url] then save and push the changes 
 ```bash
 git init
 git add .
@@ -47,10 +47,8 @@ git commit -m "discrebtion"
 git push -u origin master
 
 ```
-[Next][Next-url]
+<!-- [Next][Next-url]
+[Next-url]: https://nextjs.org/ -->
 
-[Next-url]: https://nextjs.org/
-
-
-(https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project/blob/master/main%20enviroment/dev.tfvars)
-(https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project/blob/master/main%20enviroment/test.tfvars)
+[dev.tfvars-url]: https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project/blob/master/main%20enviroment/dev.tfvars
+[test.tfvars-url]: https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project/blob/master/main%20enviroment/test.tfvars
