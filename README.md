@@ -1,6 +1,6 @@
 # Multi-Environment Infrastructure Automation
 
-![Diagram](./main enviroment/Untitled%20Diagram.png)
+![Diagram](./main%20enviroment/Untitled%20Diagram.png)
 
 <!-- ## Table of Contents -->
 <details>
