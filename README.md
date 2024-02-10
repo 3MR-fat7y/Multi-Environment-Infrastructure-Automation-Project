@@ -9,7 +9,7 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#prerequisites">prerequisites</a></li>
       </ul>
     </li>
     <li>
@@ -27,11 +27,13 @@
 
 
 ### About The Project
+the project provides an aws deferent environments of ( dev- test ) to can apply your working environment quick and easy using terrafrom by discribe your infrastructure environment as cdoe and automate the deployment process with github actions to your environment 
 
-#### Built With
-
+#### prerequisites
+* [github-actions] (https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project/actions/new)
 * [terraform] (https://developer.hashicorp.com/terraform/install)
-* [github actions] (https://developer.hashicorp.com/terraform/install)
+* [AWS-cli] (https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
 
 ### Getting Started 
 
