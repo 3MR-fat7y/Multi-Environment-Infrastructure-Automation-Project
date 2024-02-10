@@ -31,14 +31,17 @@ git clone https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automati
 
 * make ur uon ripo named Multi-Environment Infrastructure Automation Project 
 
-* then make your modifications on the [dev.tfvars][dev.tfvars-url] and [test.tfvars][test.tfvars-url] then save and push the changes 
+* then make your modifications on the [dev.tfvars][dev.tfvars-url] and [test.tfvars][test.tfvars-url] then save and push the changes as your environment requierments.
+
 ```bash
 git init
 git add .
 git commit -m "Initial commit"
-git remote add origin https://github.com/your_username/your_repository.git
+git remote add origin <https://github.com/your_username/your_repository.git>
 git push -u origin main
 ```
+
+
 
 <!-- [Next][Next-url]
 [Next-url]: https://nextjs.org/ -->

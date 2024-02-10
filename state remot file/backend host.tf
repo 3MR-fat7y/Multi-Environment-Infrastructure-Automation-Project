@@ -16,13 +16,13 @@ resource "aws_s3_bucket_versioning" "enabled" {
   }
 }
 
-# resource "aws_dynamodb_table" "test-locks" {
-#   name         = "test-locks"
-#   billing_mode = "PAY_PER_REQUEST"
-#   hash_key     = "LockID" #to make sure its one apply done in the same time
+resource "aws_dynamodb_table" "test-locks" {
+  name         = "test-locks"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "LockID" #to make sure its one apply done in the same time
 
-#   attribute {
-#     name = "LockID"
-#     type = "S"
-#   }
-# }
+  attribute {
+    name = "LockID"
+    type = "S"
+  }
+}
