@@ -27,4 +27,4 @@ The project provides AWS environments for dev and test to quickly apply your wor
 ```bash
 git clone https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project
 ```
-make your m
+make your modifications on the 
