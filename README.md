@@ -27,17 +27,20 @@
 
 
 ### About The Project
-### Built With
 
-* [![terraform][terraform.com]][https://developer.hashicorp.com/terraform/install]
+#### Built With
 
-### uGetting Started 
+* [![terraform][terraform.com]][terraform-url]
+[terraform-url]: https://developer.hashicorp.com/terraform/install
 
-clone the project
----
+### Getting Started 
+
+clone the project :
+
+```
 git clone https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project
 
----
+```
 #### header
 [link] (url)
 
