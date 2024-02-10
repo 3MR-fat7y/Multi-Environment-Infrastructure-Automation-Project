@@ -1,10 +1,10 @@
 # Multi-Environment Infrastructure Automation
 
-![Diagram](./Untitled%20Diagram.png)
+![Diagram](./main enviroment/Untitled%20Diagram.png)
 
-## Table of Contents
+<!-- ## Table of Contents -->
 <details>
-  <summary><b>Click to expand</b></summary>
+  <summary><b>Table of Contents</b></summary>
   <ol>
     <li><a href="#about-the-project">About The Project</a></li>
     <li><a href="#prerequisites">Prerequisites</a></li>
@@ -26,3 +26,5 @@ The project provides AWS environments for dev and test to quickly apply your wor
 ### Clone the project
 ```bash
 git clone https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project
+```
+make your m

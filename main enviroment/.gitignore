@@ -2,3 +2,5 @@
 *lab1.pptx*
 *awscliv2*
 *.credentials.txt*
+*main enviroment*
+*.terraform.lock.hcl*

@@ -7,9 +7,3 @@ module "network" {
   private-1-cidr=var.cidr-private-1
   private-2-cidr=var.cidr-private-2
 }
-
-# module "my_credentials" {
-#   source = "./credentials"
-# }
-
- 
