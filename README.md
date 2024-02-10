@@ -40,13 +40,6 @@ git remote add origin https://github.com/your_username/your_repository.git
 git push -u origin main
 ```
 
-
-```bash
-git add README.md
-git commit -m "discrebtion"
-git push -u origin master
-
-```
 <!-- [Next][Next-url]
 [Next-url]: https://nextjs.org/ -->
 
