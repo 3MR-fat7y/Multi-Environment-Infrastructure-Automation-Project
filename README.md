@@ -1,55 +1,28 @@
 # Multi-Environment Infrastructure Automation
 
+![Diagram](./Untitled%20Diagram.png)
 
-
-<!-- TABLE OF CONTENTS -->
+## Table of Contents
 <details>
-  <summary>Table of Contents</summary>
+  <summary><b>Click to expand</b></summary>
   <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#prerequisites">prerequisites</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
     <li><a href="#usage">Usage</a></li>
   </ol>
 </details>
 
+## About The Project
+The project provides AWS environments for dev and test to quickly apply your working environment using Terraform. Describe your infrastructure environment as code and automate the deployment process with GitHub Actions.
 
+### Prerequisites
+- [GitHub Actions](https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project/actions/new)
+- [Terraform](https://www.terraform.io/downloads.html)
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
 
+## Getting Started
 
-### About The Project
-the project provides an aws deferent environments of ( dev- test ) to can apply your working environment quick and easy using terrafrom by discribe your infrastructure environment as cdoe and automate the deployment process with github actions to your environment 
-
-#### prerequisites
-* [![github-actions]] [https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project/actions/new]
-* [terraform] (https://developer.hashicorp.com/terraform/install)
-* [AWS-cli] (https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-
-
-### Getting Started 
-
-clone the project :
-
-```
+### Clone the project
+```bash
 git clone https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project
-```
-#### header
-[link] (url)
-
-<!-- for add pic -->
-<ing src= "url" width="" height="">
-
-<!-- here to can add tow pics at the line -->
-<div> 
-<ing src= "./Untitled Diagram.png" width="" height="">
-<ing src= "url" width="" height="">
-</div>
