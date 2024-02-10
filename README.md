@@ -23,8 +23,30 @@ The project provides AWS environments for dev and test to quickly apply your wor
 
 ## Getting Started
 
-### Clone the project
+* Clone the project
 ```bash
 git clone https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project
+
 ```
-make your modifications on the 
+
+* make ur uon ripo named Multi-Environment Infrastructure Automation Project 
+
+* then make your modifications on the [dev.tfvars] and [test.tfvars] then save and push the changes 
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/your_username/your_repository.git
+git push -u origin main
+```
+
+
+```bash
+git add README.md
+git commit -m "discrebtion"
+git push -u origin master
+
+```
+
+
+(https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project/blob/master/main%20enviroment/dev.tfvars)
