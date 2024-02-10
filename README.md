@@ -30,7 +30,7 @@
 the project provides an aws deferent environments of ( dev- test ) to can apply your working environment quick and easy using terrafrom by discribe your infrastructure environment as cdoe and automate the deployment process with github actions to your environment 
 
 #### prerequisites
-* [![github-actions] (https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project/actions/new)]
+* [github-actions] [(https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project/actions/new)]
 * [terraform] (https://developer.hashicorp.com/terraform/install)
 * [AWS-cli] (https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
