@@ -1,6 +1,6 @@
 # Multi-Environment Infrastructure Automation
 
-![Diagram](./main%20enviroment/Untitled%20Diagram.png)
+![Diagram](./pics/ENVIRONMENT%20ARCHITECTURE.png)
 
 <!-- ## Table of Contents -->
 <details>
@@ -48,3 +48,16 @@ git push -u origin main
 
 [dev.tfvars-url]: https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project/blob/master/main%20enviroment/dev.tfvars
 [test.tfvars-url]: https://github.com/3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project/blob/master/main%20enviroment/test.tfvars
+
+
+
+![Diagram](./pics/GitHub%20action%20setup.png)
+* What we want to achieve is to be able to deploy whatever you we want to AWS, using Terraform within a GitHub Action for the deployment. Also, instead of creating an AWS API Keys and Secret Keys and storing them in GitHub secrets, we can make it more secure by using the GitHub OIDC (OpenID Connect) Provider and only allowing these credentials to be run from our GitHub Action in this specific repository.
+
+![Diagram](./pics/OIDC%20provider%20authentification.png)
+* This is how it works:
+- GitHub Action is going to request a JWT (Java Web Token) to the GitHub OIDC Provider.- 
+- GitHub OIDC Provider will issue the signed JWT to our GitHub Action.
+- GitHub Action with our signed JWT is going to request a temporary access token from the IAM Identity Provider in AWS.
+- IAM Identity Provider is going to verify the signed JWT with the GitHub OIDC Provider and verify if the role we want to assume can be used by the Identity Provider.
+- IAM Identity Provider is going to issue the temporary access token from the role to the GitHub Action. After this authentification, our GitHub action environment will get access to AWS following the policies we have attached to the role we assume.

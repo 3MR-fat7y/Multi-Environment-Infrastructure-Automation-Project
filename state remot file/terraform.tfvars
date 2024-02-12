@@ -1,0 +1,4 @@
+github_client_id  = "38c689272f389b1e3061"
+github_thumbprint = "A3B59E5FE884EE1F34D98EEF858E3FB662AC104A"
+
+
