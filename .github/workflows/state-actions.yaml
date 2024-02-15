@@ -10,6 +10,10 @@ jobs:
     name: Deploy Infrastructure
     runs-on: ubuntu-latest
     
+    env:
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      THUMBPRINT: ${{ secrets.THUMBPRINT }}
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -19,18 +23,11 @@ jobs:
       with:
         terraform_version: 1.0.0
 
-    - name: Set up AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
-
     - name: Terraform Init
       run: terraform init
 
     - name: Terraform Plan
-      run: terraform plan
+      run: terraform plan -var="github_client_id=${CLIENT_ID}" -var="github_thumbprint=${THUMBPRINT}"
 
     - name: Terraform Apply
-      run: terraform apply -auto-approve
+      run: terraform apply -auto-approve -var="github_client_id=${CLIENT_ID}" -var="github_thumbprint=${THUMBPRINT}"
