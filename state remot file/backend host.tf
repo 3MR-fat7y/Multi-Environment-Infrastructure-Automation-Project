@@ -88,7 +88,7 @@ resource "aws_iam_role" "githubusercontent_role" {
 
 resource "aws_iam_role_policy_attachment" "githubusercontent_role_attachment" {
   role       = aws_iam_role.githubusercontent_role.name
-  policy_arn = "arn:aws:iam::aws_iam_policy.githubusercontent_policy.arn"
+  policy_arn = "arn:aws:iam::aws:iam::aws:policy/githubusercontent_policy"
 
 }
 
