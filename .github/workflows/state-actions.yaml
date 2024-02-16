@@ -28,10 +28,8 @@ jobs:
 
 
     - name: Terraform Init
-      run: |
-        terraform init #-backend-config="bucket=terraform-state-actions" -backend-config="key=./terraform-state-actions"
-        run: cd ../
       working-directory: state remote/backend host.tf
+      run: terraform init #-backend-config="bucket=terraform-state-actions" -backend-config="key=./terraform-state-actions"
 
     - name: Terraform Plan
       run: terraform plan -var="github_client_id=${CLIENT_ID}" -var="github_thumbprint=${THUMBPRINT}"
