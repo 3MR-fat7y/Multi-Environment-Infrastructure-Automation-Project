@@ -1,4 +1,0 @@
-*.terraform.lock.hcl*
-*.terraform*
-*terraform.tfstate*
-*github_oauth_app.tfvars*
