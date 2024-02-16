@@ -26,6 +26,7 @@ jobs:
     # - name: Go to state remote file directory
     #   run: cd state\ remote
 
+    
     - name: Terraform Init
       run: terraform init #-backend-config="bucket=terraform-state-actions" -backend-config="key=./terraform-state-actions"
       working-directory: state remote/backend host.tf
