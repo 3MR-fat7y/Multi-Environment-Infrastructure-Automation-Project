@@ -28,7 +28,9 @@ jobs:
 
 
     - name: Terraform Init
-      run: terraform init #-backend-config="bucket=terraform-state-actions" -backend-config="key=./terraform-state-actions"
+      run: |
+        terraform init #-backend-config="bucket=terraform-state-actions" -backend-config="key=./terraform-state-actions"
+        run: cd ../
       working-directory: state remote/backend host.tf
 
     - name: Terraform Plan
