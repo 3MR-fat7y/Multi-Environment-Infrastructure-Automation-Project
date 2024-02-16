@@ -32,7 +32,7 @@ jobs:
 
     - name: Terraform Plan
       run: terraform plan -var="github_client_id=${CLIENT_ID}" -var="github_thumbprint=${THUMBPRINT}"
-      working-directory: state remote\backend host.tf
+      working-directory: state remote/backend host.tf
       
     # - name: Terraform Apply
     #   run: terraform apply -auto-approve -var="github_client_id=${CLIENT_ID}" -var="github_thumbprint=${THUMBPRINT}"
