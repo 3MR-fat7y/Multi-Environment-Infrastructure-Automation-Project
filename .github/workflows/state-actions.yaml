@@ -6,6 +6,7 @@ on:
       - master
 
 permissions:
+  pull-requests: write
   id-token: write
   contents: read
 
@@ -14,10 +15,7 @@ jobs:
       terraform:
         name: 'continuous-integration'
         runs-on: ubuntu-latest
-        permissions:
-          pull-requests: write
-          id-token: write
-          contents: read
+
         # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
         defaults:
           run:
