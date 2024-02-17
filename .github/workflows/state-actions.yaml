@@ -27,7 +27,7 @@ jobs:
 
 
         - name: Configure AWS Credentials Action For GitHub Actions
-          uses: aws-actions/configure-aws-credentials@v1
+          uses: aws-actions/configure-aws-credentials@v1-node20
           with:
             role-to-assume: ${{secrets.IAM_ROLE}}
             role-session-name: AWSSession
