@@ -2,39 +2,45 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_dynamodb_table" "test-locks" {
-  name         = "test-locks"
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "LockID" #to make sure its one apply done in the same time
-
-  attribute {
-    name = "LockID"
-    type = "S"
-  }
+# Create an identity provider (OIDC) for GitHub Actions
+resource "aws_iam_openid_connect_provider" "github_actions" {
+  url             = "https://token.actions.githubusercontent.com"
+  client_id_list  = ["sts.amazonaws.com"]
+  thumbprint_list = ["959CB2B52B4AD201A593847ABCA32FF48F838C2E"]
 }
 
+# Create the role for GitHub’s OIDC identity provider (IdP)
+resource "aws_iam_role" "GitHubActionsRole" {
+  name = "GitHubActionsRole"
 
-resource "aws_s3_bucket" "terraform-state-actions" {
-  bucket = "terraform-state-actions"
-  lifecycle {
-    prevent_destroy = false
-  }
-}
-output "aws_s3_bucket_arn" {
-  value = aws_s3_bucket.terraform-state-actions.arn
-}
-resource "aws_s3_bucket_versioning" "enabled" {
-  bucket = aws_s3_bucket.terraform-state-actions.id
-  versioning_configuration {
-    status = "Enabled"
-  }
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Principal" : {
+          "Federated" : aws_iam_openid_connect_provider.github_actions.arn
+        },
+        "Action" : "sts:AssumeRoleWithWebIdentity",
+        "Condition" : {
+          "StringLike" : { "token.actions.githubusercontent.com:sub" : "repo:3MR-fat7y/Multi-Environment-Infrastructure-Automation-Project/master:*" },
+          "StringEquals" : { "token.actions.githubusercontent.com:aud" : "sts.amazonaws.com" }
+        }
+      }
+    ]
+  })
 }
 
+# Output the ARN of the GitHub Actions role
+output "value-of-github-secrete" {
+  value = ">> ${aws_iam_role.GitHubActionsRole.arn} <<\nThis is the ARN of the role to store it in the GitHub secrets with the name 'AWS_ROLE'"
+}
 
-resource "aws_iam_policy" "githubusercontent_policy" {
-  name        = "test_githubusercontent"
+# Create the IAM policy to grant access for storing Terraform state in S3
+resource "aws_iam_policy" "TerraformStatePolicy" {
+  name        = "TerraformStatePolicy"
   path        = "/"
-  description = "My githubusercontent"
+  description = "Allows storing Terraform state in S3"
 
   policy = jsonencode({
     "Version" : "2012-10-17",
@@ -47,69 +53,46 @@ resource "aws_iam_policy" "githubusercontent_policy" {
           "s3:ListBucket",
         ],
         "Resource" : [
-          "arn:aws:s3:::aws_s3_bucket.terraform-state-actions.arn/*",
-          "arn:aws:s3:::aws_s3_bucket.terraform-state-actions.arn"
+          "${aws_s3_bucket.terraform-state-actions.arn}/*",
+          "${aws_s3_bucket.terraform-state-actions.arn}"
         ]
       }
     ]
   })
 }
 
-output "aws_iam_policy" {
-  value = aws_iam_policy.githubusercontent_policy.arn
+# Attach the IAM policy to the GitHub Actions role
+resource "aws_iam_role_policy_attachment" "githubusercontentroleattachment" {
+  role       = aws_iam_role.GitHubActionsRole.name
+  policy_arn = aws_iam_policy.TerraformStatePolicy.arn
 }
 
-resource "aws_iam_role" "githubusercontent_role" {
-  name = "githubusercontent_role"
-
-  # Terraform's "jsonencode" function converts a
-  # Terraform expression result to valid JSON syntax.
-  assume_role_policy = jsonencode(
-    {
-      "Version" : "2008-10-17",
-      "Statement" : [
-        {
-          "Effect" : "Allow",
-          "Principal" : {
-            "Federated" : aws_iam_openid_connect_provider.github-auth.arn
-          },
-          "Action" : "sts:AssumeRoleWithWebIdentity",
-          "Condition" : {
-            "StringLike" : {
-              "token.actions.githubusercontent.com:sub" : "repo:https://github.com/3MR-fat7y/actions:*"
-              # repo:YOUR_GITHUB_USERNAME/YOUR_REPO_NAME:* (here you can use a spacific branch or any branch by '*')
-            }
-          }
-        }
-      ]
-    }
-  )
+# Create an S3 bucket to store the Terraform state file
+resource "aws_s3_bucket" "terraform-state-actions" {
+  bucket = "terraform-state-actions"
+  
+  lifecycle {
+    prevent_destroy = false
+  }
 }
 
-resource "aws_iam_role_policy_attachment" "githubusercontent_role_attachment" {
-  role       = aws_iam_role.githubusercontent_role.name
-  policy_arn = "arn:aws:iam::aws:iam::aws:policy/githubusercontent_policy"
-
+# Enable versioning for the S3 bucket
+resource "aws_s3_bucket_versioning" "enabled" {
+  bucket = aws_s3_bucket.terraform-state-actions.id
+  
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
 
-variable "github_client_id" {
-  description = "Client ID of the GitHub OAuth App"
-  type        = string
-}
+# Create a DynamoDB table for state locking
+resource "aws_dynamodb_table" "test-locks" {
+  name         = "test-locks"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "LockID" # to ensure only one apply is done at a time
 
-variable "github_thumbprint" {
-  description = "Thumbprint of GitHub's certificate"
-  type        = string
-}
-
-resource "aws_iam_openid_connect_provider" "github-auth" {
-  url = "https://token.actions.githubusercontent.com"
-  # client_id       = "sts.amazonaws.com"
-  client_id_list  = [var.github_client_id]
-  thumbprint_list = [var.github_thumbprint]
-}
-
-
-output "openid_connect_provider_arn" {
-  value = aws_iam_openid_connect_provider.github-auth.arn
+  attribute {
+    name = "LockID"
+    type = "S"
+  }
 }

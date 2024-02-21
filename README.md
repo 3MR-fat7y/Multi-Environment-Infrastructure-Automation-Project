@@ -51,6 +51,10 @@ git push -u origin main
 
 
 
+In GitHub actions, the process mostly stays the same compared to the manual process. The few differences are in how you authenticate GitHub Actions to communicate with your AWS account to provision resources and an automation step, namely, updating the pull request. To create a secure process, I stored the ARN of the IAM role (OpenID Connect) as a secret in this GitHub repository and then accessed via the secrets.IAM_ROLE construct.
+
+
+
 ![Diagram](./pics/GitHub%20action%20setup.png)
 * What we want to achieve is to be able to deploy whatever you we want to AWS, using Terraform within a GitHub Action for the deployment. Also, instead of creating an AWS API Keys and Secret Keys and storing them in GitHub secrets, we can make it more secure by using the GitHub OIDC (OpenID Connect) Provider and only allowing these credentials to be run from our GitHub Action in this specific repository.
 
@@ -61,3 +65,25 @@ git push -u origin main
 - GitHub Action with our signed JWT is going to request a temporary access token from the IAM Identity Provider in AWS.
 - IAM Identity Provider is going to verify the signed JWT with the GitHub OIDC Provider and verify if the role we want to assume can be used by the Identity Provider.
 - IAM Identity Provider is going to issue the temporary access token from the role to the GitHub Action. After this authentification, our GitHub action environment will get access to AWS following the policies we have attached to the role we assume.
+
+#### To create a thumbprint for the aws_iam_openid_connect_provider, you need to obtain the SHA-1 fingerprint of the certificate used by the OpenID Connect provider, in this case, GitHub.
+
+- Obtain the certificate chain from the OpenID Connect provider. For GitHub, you can use the following command to obtain the certificate chain:
+
+```bash
+openssl s_client -connect token.actions.githubusercontent.com:443
+```
+
+- Copy the certificate chain from the output, starting with
+-----BEGIN CERTIFICATE-----
+............and ending with
+-----END CERTIFICATE-----
+then Save the certificate chain to a file, for example, github_cert_chain.pem.
+
+
+- Use the openssl x509 command to calculate the thumbprint (SHA-1 fingerprint) of the certificate:
+
+```bash
+openssl x509 -in github_cert_chain.pem -noout -fingerprint -sha1
+```
+

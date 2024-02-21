@@ -1,12 +1,20 @@
 name: Terraform Automation
 
+# the workflow is devided into tow stadages for CI/CD
+# the continuos integration tacking the code and plant
+# the continuos deployment its apply to the aws account
 on:
+  pull_request:
+    branches: # adabte your branch
+      - master 
   push:
-    branches:
-      - master
+    branches: # adabte your branch
+      - master 
+
+
 jobs:
-  terraform:
-    name: 'Continuous Integration'
+  terraform_plan:
+    name: 'CI: planing the environment'
     runs-on: ubuntu-latest
 
     steps:
@@ -16,34 +24,50 @@ jobs:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        role-to-assume: ${{ secrets.AWS_ROLE }}
-        role-session-name: AWSSession
-        aws-region: us-east-1
+        role-to-assume: ${{ secrets.AWS_ROLE }} # here your are storing the IAM Role ARN in the GitHub Serets
+        role-session-name: AWS-${{ github.sha }}
+        aws-region: us-east-1 
+        # define your egion here or make it secret
+        # aws-region: ${{ secrets.AWS_REGION }}
 
-
-
-# Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+     
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+      uses: hashicorp/setup-terraform@v1  # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
 
         
     - name: Terraform Init
-      run: terraform init #-backend-config="bucket=terraform-state-actions" -backend-config="key=./terraform-state-actions"
-      # working-directory: state remote
-      
+      run: terraform init 
+      working-directory: 
 
     - name: Terraform Plan
       run: terraform plan 
-      # working-directory: state remote
+      working-directory: .
+
       
-    # - name: Terraform Apply
-    #   run: terraform apply -auto-approve
-    #   working-directory: state remote
+  terraform_apply:
+    name: 'CD: deploying the environment to aws acc'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: ${{ secrets.AWS_ROLE }} # here your are storing the IAM Role ARN in the GitHub Serets
+        role-session-name: AWS-${{ github.sha }}
+        aws-region: us-east-1 
+        # define your egion here or make it secret
+        # aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Terraform Apply
+      working-directory: 
+      run: |
+        terraform init
+        terraform apply -auto-approve
       
-        # - name: Configure AWS credentials
-        #   uses: aws-actions/configure-aws-credentials@v1
-        #   with:
-        #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        #     aws-region: us-east-1
-            
+      
